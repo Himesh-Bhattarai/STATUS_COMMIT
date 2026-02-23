@@ -19,7 +19,9 @@
       "name": "In Progress",
       "codes": {
         "101": "Draft or scaffolding added",
-        "102": "Partial implementation"
+        "102": "Partial implementation",
+        "103": "Blocked / waiting on dependency",
+        "104": "Research / spike / exploration"
       }
     },
     {
@@ -47,7 +49,8 @@
       "codes": {
         "401": "Incorrect data flow or usage",
         "403": "Scope or responsibility issue",
-        "408": "Performance / latency issues identified"
+        "408": "Performance / latency issues identified",
+        "409": "Works but risky / fragile (needs review or testing)"
       }
     },
     {

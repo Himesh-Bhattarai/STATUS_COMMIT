@@ -14,7 +14,7 @@ Repository: https://github.com/Himesh-Bhattarai/STATUS_COMMIT
 ## What It Is
 STATUS is a commit convention that encodes the reliability and state of a change.
 It makes git history scannable, honest, and easy to communicate across teams.
-The STATUS code signals the objective, intended state of code quality(working, broken, refactored, WIP), while the message remains the author's narrative about what they did and why.
+The STATUS code signals the objective, intended state of the code (working, broken, refactored, WIP), while the message remains the author's narrative about what they did and why.
 
 ## Quickstart
 1. Copy these files into your repo: `.gitmessage`, `hooks/commit-msg`, `hooks/prepare-commit-msg`, `scripts/install-hooks.*`.
@@ -94,12 +94,17 @@ Top codes:
 
 ## Decision Guide
 - Use 1xx when the work is incomplete or experimental.
+- Use 103 when the work is blocked or waiting on a dependency.
+- Use 104 for research or spike work.
 - Use 2xx when the change is working and safe.
 - Use 3xx when you improved or refactored something.
 - Use 5xx when something is broken or failing.
 - Use 6xx when you fixed a failure.
 - Use 203 for documentation-only changes.
+- Use 409 when it works but is risky or fragile.
 - Use 404 for human chaos or debugging madness.
+
+Note: Some numeric gaps are intentional and reserved for future codes or team-specific use.
 
 ## Examples
 
@@ -107,6 +112,8 @@ Top codes:
 status(301): add export endpoint
 status(601): fix null pointer in auth middleware
 status(102): scaffold payment flow
+status(103): blocked by vendor API changes
+status(409): works but risky, needs extra testing
 status(203): update README and usage examples
 status(infinity): v1.0.0 gold master
 status(404): everything is broken except me

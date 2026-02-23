@@ -117,11 +117,14 @@ Top codes:
 
 ## Decision Guide
 - Use 1xx when the work is incomplete or experimental.
+- Use 103 when the work is blocked or waiting on a dependency.
+- Use 104 for research or spike work.
 - Use 2xx when the change is working and safe.
 - Use 3xx when you improved or refactored something.
 - Use 5xx when something is broken or failing.
 - Use 6xx when you fixed a failure.
 - Use 203 for documentation-only changes.
+- Use 409 when it works but is risky or fragile.
 - Use 404 for human chaos or debugging madness.
 
 ## Full Code List
@@ -132,6 +135,8 @@ Top codes:
 | Initialization | STATUS(003) | Create / delete folder or file |
 | In Progress | STATUS(101) | Draft or scaffolding added |
 | In Progress | STATUS(102) | Partial implementation |
+| In Progress | STATUS(103) | Blocked / waiting on dependency |
+| In Progress | STATUS(104) | Research / spike / exploration |
 | Stable / Working | STATUS(201) | Working as expected |
 | Stable / Working | STATUS(202) | Verified with real usage |
 | Stable / Working | STATUS(203) | Documentation updated (README, JSDoc, etc.) |
@@ -142,6 +147,7 @@ Top codes:
 | Design / Usage Issues | STATUS(401) | Incorrect data flow or usage |
 | Design / Usage Issues | STATUS(403) | Scope or responsibility issue |
 | Design / Usage Issues | STATUS(408) | Performance / latency issues identified |
+| Design / Usage Issues | STATUS(409) | Works but risky / fragile (needs review or testing) |
 | Broken / Failure | STATUS(500) | Not working / runtime failure |
 | Broken / Failure | STATUS(502) | Interface or contract mismatch |
 | Broken / Failure | STATUS(503) | Security vulnerability or auth failure |
@@ -150,12 +156,16 @@ Top codes:
 | Special | STATUS(infinity) | Gold Master / Fully stable, tested, and trusted |
 | Special | STATUS(404) | Human State / Chaos (does not indicate code quality) |
 
+Note: Some numeric gaps are intentional and reserved for future codes or team-specific use.
+
 ## Examples
 
 ```
 status(301): add export endpoint
 status(601): fix null pointer in auth middleware
 status(102): scaffold payment flow
+status(103): blocked by vendor API changes
+status(409): works but risky, needs extra testing
 status(203): update README and usage examples
 status(infinity): v1.0.0 gold master
 status(404): everything is broken except me
