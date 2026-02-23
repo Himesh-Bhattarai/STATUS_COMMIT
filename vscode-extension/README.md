@@ -17,5 +17,13 @@ vsce package
 code --install-extension status-commit-0.0.1.vsix
 ```
 
+## Publish (When You Have a Token)
+Publishing requires a Visual Studio Marketplace publisher and a PAT token with Marketplace publish rights.
+
+```bash
+vsce login <publisher>
+vsce publish
+```
+
 ## Development
 Open this folder in VS Code and press `F5` to launch an Extension Development Host.

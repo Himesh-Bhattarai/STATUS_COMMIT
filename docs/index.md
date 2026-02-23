@@ -14,7 +14,7 @@ Repository: https://github.com/Himesh-Bhattarai/STATUS_COMMIT
 ## What It Is
 STATUS is a commit convention that encodes the reliability and state of a change.
 It makes git history scannable, honest, and easy to communicate across teams.
-The STATUS code signals the objective, intended state (working, broken, refactored, WIP), while the message remains the author's narrative about what they did and why.
+The STATUS code signals the objective, intended state of code quality(working, broken, refactored, WIP), while the message remains the author's narrative about what they did and why.
 
 ## Quickstart
 1. Copy these files into your repo: `.gitmessage`, `hooks/commit-msg`, `hooks/prepare-commit-msg`, `scripts/install-hooks.*`.

@@ -4,12 +4,29 @@
   "description": "Autocomplete and quick-pick for STATUS commit messages.",
   "version": "0.0.1",
   "publisher": "himeshchanchal",
+  "license": "Apache-2.0",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Himesh-Bhattarai/STATUS_COMMIT.git"
+  },
+  "homepage": "https://github.com/Himesh-Bhattarai/STATUS_COMMIT#readme",
+  "bugs": {
+    "url": "https://github.com/Himesh-Bhattarai/STATUS_COMMIT/issues"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
   "categories": [
     "SCM Providers",
     "Productivity"
+  ],
+  "keywords": [
+    "git",
+    "commit",
+    "status",
+    "convention",
+    "scm"
   ],
   "activationEvents": [
     "onLanguage:git-commit",

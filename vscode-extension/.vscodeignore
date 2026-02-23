@@ -1,0 +1,5 @@
+# Ignore test and local artifacts
+node_modules/
+*.vsix
+.vscode/
+.DS_Store
