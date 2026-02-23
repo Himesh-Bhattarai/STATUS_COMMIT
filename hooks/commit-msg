@@ -1,0 +1,24 @@
+#!/bin/sh
+# Enforce STATUS commit message format.
+
+msg_file="$1"
+first_line="$(head -n 1 "$msg_file")"
+
+case "$first_line" in
+  Merge*|Revert*|fixup!*|squash!*) exit 0 ;;
+esac
+
+if echo "$first_line" | grep -Eq '^STATUS\(((infinity)|([0-9]{3}))\): .+'; then
+  exit 0
+fi
+
+cat <<'EOF' >&2
+ERROR: Commit message must start with:
+  STATUS(###): short summary
+or:
+  STATUS(infinity): short summary
+
+Example:
+  STATUS(301): add export endpoint
+EOF
+exit 1

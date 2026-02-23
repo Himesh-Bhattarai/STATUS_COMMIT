@@ -1,0 +1,71 @@
+{
+  "format": "STATUS(###): summary",
+  "special": {
+    "infinity": "Gold Master / Fully stable, tested, and trusted",
+    "404": "Human State / Chaos (does not indicate code quality)"
+  },
+  "categories": [
+    {
+      "range": "0xx",
+      "name": "Initialization",
+      "codes": {
+        "001": "Initial commit / project start",
+        "002": "Base structure established",
+        "003": "Create / delete folder or file"
+      }
+    },
+    {
+      "range": "1xx",
+      "name": "In Progress",
+      "codes": {
+        "101": "Draft or scaffolding added",
+        "102": "Partial implementation"
+      }
+    },
+    {
+      "range": "2xx",
+      "name": "Stable / Working",
+      "codes": {
+        "201": "Working as expected",
+        "202": "Verified with real usage",
+        "203": "Documentation updated (README, JSDoc, etc.)",
+        "204": "Production-ready"
+      }
+    },
+    {
+      "range": "3xx",
+      "name": "Change / Improvement",
+      "codes": {
+        "300": "Refactoring (no functional change)",
+        "301": "Feature or capability added",
+        "302": "Enhancement or improvement"
+      }
+    },
+    {
+      "range": "4xx",
+      "name": "Design / Usage Issues",
+      "codes": {
+        "401": "Incorrect data flow or usage",
+        "403": "Scope or responsibility issue",
+        "408": "Performance / latency issues identified"
+      }
+    },
+    {
+      "range": "5xx",
+      "name": "Broken / Failure",
+      "codes": {
+        "500": "Not working / runtime failure",
+        "502": "Interface or contract mismatch",
+        "503": "Security vulnerability or auth failure"
+      }
+    },
+    {
+      "range": "6xx",
+      "name": "Recovery",
+      "codes": {
+        "601": "Bug or failure fixed",
+        "603": "Structure or state corrected"
+      }
+    }
+  ]
+}
