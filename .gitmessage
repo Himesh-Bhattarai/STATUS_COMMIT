@@ -1,10 +1,11 @@
 STATUS(###): short summary
+# Prefix can be STATUS/Status/status. Separator can be :, ;, -, or space.
 
-Why:
-- 
+# Why:
+# - 
 
-Notes:
-- 
+# Notes:
+# - 
 
-Refs:
-- 
+# Refs:
+# - 

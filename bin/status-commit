@@ -1,0 +1,129 @@
+#!/bin/sh
+set -e
+
+usage() {
+  cat <<'EOF'
+STATUS Commit System CLI
+
+Usage:
+  status-commit install [--repo <path>]
+  status-commit commit [--repo <path>]
+
+Examples:
+  status-commit install
+  status-commit install --repo ../my-project
+  status-commit commit
+  status-commit commit --repo ../my-project
+EOF
+}
+
+cmd="${1:-}"
+if [ -z "$cmd" ]; then
+  usage
+  exit 1
+fi
+shift || true
+
+repo="."
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --repo)
+      repo="$2"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown argument: $1" >&2
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+case "$cmd" in
+  install)
+    if [ ! -d "$repo/.git" ]; then
+      echo "Not a git repository: $repo" >&2
+      exit 1
+    fi
+
+    root="$(cd "$(dirname "$0")/.." && pwd)"
+
+    mkdir -p "$repo/hooks"
+    mkdir -p "$repo/.git/hooks"
+
+    cp "$root/.gitmessage" "$repo/.gitmessage"
+    cp "$root/hooks/commit-msg" "$repo/hooks/commit-msg"
+    cp "$root/hooks/prepare-commit-msg" "$repo/hooks/prepare-commit-msg"
+    cp "$root/hooks/commit-msg" "$repo/.git/hooks/commit-msg"
+    cp "$root/hooks/prepare-commit-msg" "$repo/.git/hooks/prepare-commit-msg"
+    chmod +x "$repo/.git/hooks/commit-msg" "$repo/.git/hooks/prepare-commit-msg" 2>/dev/null || true
+
+    git -C "$repo" config commit.template .gitmessage
+
+    echo "Installed STATUS tools into $repo"
+    echo "Next: git commit -m \"STATUS(301): add feature\""
+    ;;
+  commit)
+    if [ ! -d "$repo/.git" ]; then
+      echo "Not a git repository: $repo" >&2
+      exit 1
+    fi
+
+    echo "Pick a STATUS code:"
+    echo "1) 301 New feature"
+    echo "2) 601 Bug fix"
+    echo "3) 302 Improvement"
+    echo "4) 201 Stable change"
+    echo "5) 300 Refactor"
+    echo "6) 102 WIP"
+    echo "7) 203 Docs update"
+    echo "8) 500 Broken / failure"
+    echo "9) 404 Human state / chaos"
+    echo "0) Custom code"
+    printf "Choice: "
+    read -r choice
+
+    case "$choice" in
+      1) code="301" ;;
+      2) code="601" ;;
+      3) code="302" ;;
+      4) code="201" ;;
+      5) code="300" ;;
+      6) code="102" ;;
+      7) code="203" ;;
+      8) code="500" ;;
+      9) code="404" ;;
+      0)
+        printf "Enter code (3 digits or infinity): "
+        read -r code
+        ;;
+      *)
+        echo "Invalid choice." >&2
+        exit 1
+        ;;
+    esac
+
+    if ! echo "$code" | grep -Eq '^(infinity|[0-9]{3})$'; then
+      echo "Invalid code: $code" >&2
+      exit 1
+    fi
+
+    printf "Summary: "
+    read -r summary
+    if [ -z "$summary" ]; then
+      echo "Summary is required." >&2
+      exit 1
+    fi
+
+    msg="STATUS($code): $summary"
+    git -C "$repo" commit -m "$msg"
+    ;;
+  *)
+    usage
+    exit 1
+    ;;
+esac

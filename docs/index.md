@@ -1,18 +1,21 @@
+---
+title: STATUS Commit System
+---
+
 # STATUS Commit System
 Readable git history, at a glance.
 
 Created by Himeshchanchal Bhattarai
 Inspired by HTTP status semantics.
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![Commit Style](https://img.shields.io/badge/Commit%20Style-STATUS-0a7.svg)](README.md)
-[![STATUS Commit Check](https://github.com/Himesh-Bhattarai/STATUS_COMMIT/actions/workflows/status-commit.yml/badge.svg)](https://github.com/Himesh-Bhattarai/STATUS_COMMIT/actions/workflows/status-commit.yml)
+License: Apache-2.0
+Repository: https://github.com/Himesh-Bhattarai/STATUS_COMMIT
 
 ## What It Is
 STATUS is a commit convention that encodes the reliability and state of a change.
 It makes git history scannable, honest, and easy to communicate across teams.
 
-## Quickstart (60 Seconds)
+## Quickstart
 1. Copy these files into your repo: `.gitmessage`, `hooks/commit-msg`, `hooks/prepare-commit-msg`, `scripts/install-hooks.*`.
 2. Set the commit template: `git config commit.template .gitmessage`.
 3. Install the hook.
@@ -34,19 +37,6 @@ git commit -m "STATUS(301): add export endpoint"
 ```
 
 Tip: run `git commit` (without `-m`) to see the inline STATUS prompt in your editor.
-
-## One-Command Install
-If you cloned this repo, you can install STATUS into any git repo:
-
-```bash
-# macOS / Linux
-./bin/status-commit install --repo /path/to/your-repo
-```
-
-```powershell
-# Windows
-powershell -ExecutionPolicy Bypass -File bin/status-commit.ps1 -Repo C:\path\to\your-repo
-```
 
 ## Guided Commit (Uses -m)
 If you want a guided menu that still uses `-m` under the hood:
@@ -99,45 +89,6 @@ Top codes:
 - Use 203 for documentation-only changes.
 - Use 404 for human chaos or debugging madness.
 
-## Full Code List
-0xx Initialization
-STATUS(001): Initial commit / project start
-STATUS(002): Base structure established
-STATUS(003): Create / delete folder or file
-
-1xx In Progress
-STATUS(101): Draft or scaffolding added
-STATUS(102): Partial implementation
-
-2xx Stable / Working
-STATUS(201): Working as expected
-STATUS(202): Verified with real usage
-STATUS(203): Documentation updated (README, JSDoc, etc.)
-STATUS(204): Production-ready
-
-3xx Change / Improvement
-STATUS(300): Refactoring (no functional change)
-STATUS(301): Feature or capability added
-STATUS(302): Enhancement or improvement
-
-4xx Design / Usage Issues
-STATUS(401): Incorrect data flow or usage
-STATUS(403): Scope or responsibility issue
-STATUS(408): Performance / latency issues identified
-
-5xx Broken / Failure
-STATUS(500): Not working / runtime failure
-STATUS(502): Interface or contract mismatch
-STATUS(503): Security vulnerability or auth failure
-
-6xx Recovery
-STATUS(601): Bug or failure fixed
-STATUS(603): Structure or state corrected
-
-Special
-STATUS(infinity): Gold Master / Fully stable, tested, and trusted
-STATUS(404): Human State / Chaos (does not indicate code quality)
-
 ## Examples
 
 ```
@@ -149,7 +100,7 @@ STATUS(infinity): v1.0.0 gold master
 STATUS(404): everything is broken except me
 ```
 
-## Tooling In This Repo
+## Tooling
 - `.gitmessage` commit template for consistent summaries.
 - `hooks/commit-msg` validates the STATUS format.
 - `hooks/prepare-commit-msg` pre-fills a STATUS line for empty messages.
@@ -158,11 +109,7 @@ STATUS(404): everything is broken except me
 - `bin/status-commit` and `bin/status-commit.ps1` install tools into any repo.
 
 ## Automation
-A GitHub Action is included at `.github/workflows/status-commit.yml` to check commit messages in PRs and pushes to `main`.
-
-## Templates
-- Issue templates live in `.github/ISSUE_TEMPLATE`.
-- A pull request template lives at `.github/pull_request_template.md`.
+A GitHub Action checks commit messages on PRs and pushes to `main`.
 
 ## Compatibility
 You can combine STATUS with Conventional Commits if you want:
@@ -177,23 +124,8 @@ STATUS(301): feat(api) add export endpoint
 - **Can I combine this with Conventional Commits?** Yes, just add the conventional type after the STATUS prefix.
 - **What about merge commits?** They are allowed and ignored by the hook and CI.
 
-## Suggested GitHub Topics
-`git`, `commit`, `conventions`, `workflow`, `developer-tools`, `productivity`
-
-## GitHub Pages
-A landing page is included in `docs/`. Enable GitHub Pages with the `main` branch and `/docs` folder.
-
-## Social Preview
-A ready-to-use image is included at `assets/social-preview.svg`. Export it to PNG and set it in your GitHub repository settings for better sharing.
-
-## Changelog
-See `CHANGELOG.md`.
-
 ## Contributing
-See `CONTRIBUTING.md`.
-
-## Author
-Created and maintained by Himeshchanchal Bhattarai.
+See the repository for `CONTRIBUTING.md` and `CHANGELOG.md`.
 
 ## License
-Apache-2.0. See `LICENSE` and `NOTICE`.
+Apache-2.0. See the repository for `LICENSE` and `NOTICE`.

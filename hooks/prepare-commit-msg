@@ -1,0 +1,21 @@
+#!/bin/sh
+# Pre-fill a STATUS line when the commit message is empty.
+
+msg_file="$1"
+commit_source="$2"
+
+case "$commit_source" in
+  merge|squash) exit 0 ;;
+esac
+
+# If there's already a non-comment line, do nothing.
+if grep -Eq '^[^#[:space:]]' "$msg_file"; then
+  exit 0
+fi
+
+# Prepend a STATUS prompt.
+tmp="${msg_file}.tmp"
+printf 'STATUS(###): short summary\n\n' > "$tmp"
+cat "$msg_file" >> "$tmp"
+cat "$tmp" > "$msg_file"
+rm -f "$tmp"

@@ -1,8 +1,14 @@
 $ErrorActionPreference = "Stop"
 
 $root = Split-Path -Parent $PSScriptRoot
-$src = Join-Path $root "hooks\commit-msg"
-$dest = Join-Path $root ".git\hooks\commit-msg"
+$hookDir = Join-Path $root ".git\hooks"
+$commitMsg = Join-Path $root "hooks\commit-msg"
+$prepareMsg = Join-Path $root "hooks\prepare-commit-msg"
 
-Copy-Item -Force $src $dest
-Write-Host "Installed commit-msg hook to $dest"
+New-Item -ItemType Directory -Force -Path $hookDir | Out-Null
+Copy-Item -Force $commitMsg (Join-Path $hookDir "commit-msg")
+Copy-Item -Force $prepareMsg (Join-Path $hookDir "prepare-commit-msg")
+
+& git -C $root config commit.template .gitmessage | Out-Null
+
+Write-Host "Installed commit hooks and commit template in $root"

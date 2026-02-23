@@ -2,10 +2,16 @@
 set -e
 
 root="$(cd "$(dirname "$0")/.." && pwd)"
-src="$root/hooks/commit-msg"
-dest="$root/.git/hooks/commit-msg"
+hook_dir="$root/.git/hooks"
+commit_msg_src="$root/hooks/commit-msg"
+prepare_msg_src="$root/hooks/prepare-commit-msg"
 
-cp "$src" "$dest"
-chmod +x "$dest"
+mkdir -p "$hook_dir"
 
-echo "Installed commit-msg hook to $dest"
+cp "$commit_msg_src" "$hook_dir/commit-msg"
+cp "$prepare_msg_src" "$hook_dir/prepare-commit-msg"
+chmod +x "$hook_dir/commit-msg" "$hook_dir/prepare-commit-msg" 2>/dev/null || true
+
+git -C "$root" config commit.template .gitmessage
+
+echo "Installed commit hooks and commit template in $root"
