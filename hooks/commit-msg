@@ -8,7 +8,7 @@ case "$first_line" in
   Merge*|Revert*|fixup!*|squash!*) exit 0 ;;
 esac
 
-if echo "$first_line" | grep -Eq '^(STATUS|Status|status)\(((infinity)|([0-9]{3}))\)[[:space:]]*[:;-]?[[:space:]]+.+'; then
+if echo "$first_line" | grep -Eq '^[[:space:]]*(STATUS|Status|status)\(((infinity)|([0-9]{3}))\)[[:space:]]*:[[:space:]]+.+'; then
   exit 0
 fi
 
@@ -22,11 +22,9 @@ or:
   Status(infinity): short summary
   status(infinity): short summary
 
-Accepted separators between code and summary: colon (:), semicolon (;), hyphen (-), or just space.
+Required separator between code and summary: colon (:).
 
 Example:
-  STATUS(301): add export endpoint
-  Status(301) - add export endpoint
-  status(301); add export endpoint
+  status(301): add export endpoint
 EOF
 exit 1

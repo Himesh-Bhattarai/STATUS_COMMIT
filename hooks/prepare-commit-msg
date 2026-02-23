@@ -15,7 +15,7 @@ fi
 
 # Prepend a STATUS prompt.
 tmp="${msg_file}.tmp"
-printf 'STATUS(###): short summary\n\n' > "$tmp"
+printf 'status(###): short summary\n\n' > "$tmp"
 cat "$msg_file" >> "$tmp"
 cat "$tmp" > "$msg_file"
 rm -f "$tmp"

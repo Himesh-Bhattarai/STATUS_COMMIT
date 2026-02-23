@@ -14,6 +14,7 @@ Repository: https://github.com/Himesh-Bhattarai/STATUS_COMMIT
 ## What It Is
 STATUS is a commit convention that encodes the reliability and state of a change.
 It makes git history scannable, honest, and easy to communicate across teams.
+The STATUS code signals the objective, intended state (working, broken, refactored, WIP), while the message remains the author's narrative about what they did and why.
 
 ## Quickstart
 1. Copy these files into your repo: `.gitmessage`, `hooks/commit-msg`, `hooks/prepare-commit-msg`, `scripts/install-hooks.*`.
@@ -33,10 +34,15 @@ powershell -ExecutionPolicy Bypass -File scripts/install-hooks.ps1
 4. Make a commit.
 
 ```bash
-git commit -m "STATUS(301): add export endpoint"
+git commit -m "status(301): add export endpoint"
 ```
 
 Tip: run `git commit` (without `-m`) to see the inline STATUS prompt in your editor.
+
+## Quick Start Video (GIF)
+Below is a short, looping GIF showing the 60-second install and a guided commit:
+
+![Quick Start Demo](assets/quickstart.gif)
 
 ## Guided Commit (Uses -m)
 If you want a guided menu that still uses `-m` under the hood:
@@ -51,23 +57,29 @@ If you want a guided menu that still uses `-m` under the hood:
 powershell -ExecutionPolicy Bypass -File bin/status-commit.ps1 commit -Repo C:\path\to\your-repo
 ```
 
+## VS Code Extension
+Source is included in `vscode-extension/`. It provides autocomplete and a Quick Pick command.
+
 ## Format
 
 ```
-STATUS(###): short summary
+status(###): short summary
 ```
 
 Special case:
 
 ```
-STATUS(infinity): short summary
+status(infinity): short summary
 ```
 
-Accepted prefixes: `STATUS`, `Status`, `status`.
-Accepted separators between code and summary: `:`, `;`, `-`, or space.
+Accepted prefixes: `STATUS`, `Status`, `status` (recommended: `status`).
+Required separator between code and summary: `:`.
 
 ## Cheat Sheet
 ![STATUS Cheat Sheet](assets/status-cheatsheet.svg)
+
+Printable version:
+[Printable Cheat Sheet (PNG)](assets/status-cheatsheet-printable.png)
 
 Top codes:
 
@@ -92,13 +104,16 @@ Top codes:
 ## Examples
 
 ```
-STATUS(301): add export endpoint
-STATUS(601): fix null pointer in auth middleware
-STATUS(102): scaffold payment flow
-STATUS(203): update README and usage examples
-STATUS(infinity): v1.0.0 gold master
-STATUS(404): everything is broken except me
+status(301): add export endpoint
+status(601): fix null pointer in auth middleware
+status(102): scaffold payment flow
+status(203): update README and usage examples
+status(infinity): v1.0.0 gold master
+status(404): everything is broken except me
 ```
+
+## Live Examples
+- [STATUS Commit System (this repo) — commit history](https://github.com/Himesh-Bhattarai/STATUS_COMMIT/commits/main)
 
 ## Tooling
 - `.gitmessage` commit template for consistent summaries.
@@ -115,7 +130,7 @@ A GitHub Action checks commit messages on PRs and pushes to `main`.
 You can combine STATUS with Conventional Commits if you want:
 
 ```
-STATUS(301): feat(api) add export endpoint
+status(301): feat(api) add export endpoint
 ```
 
 ## FAQ

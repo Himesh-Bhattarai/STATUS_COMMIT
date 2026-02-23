@@ -20,7 +20,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          regex='^(STATUS|Status|status)\(((infinity)|([0-9]{3}))\)[[:space:]]*[:;-]?[[:space:]]+.+'
+          regex='^[[:space:]]*(STATUS|Status|status)\(((infinity)|([0-9]{3}))\)[[:space:]]*:[[:space:]]+.+'
           skip='^(Merge|Revert|fixup!|squash!)'
 
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then

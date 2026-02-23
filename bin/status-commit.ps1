@@ -37,10 +37,10 @@ switch ($Command) {
     & git -C $Repo config commit.template .gitmessage | Out-Null
 
     Write-Host "Installed STATUS tools into $Repo"
-    Write-Host "Next: git commit -m `"STATUS(301): add feature`""
+    Write-Host "Next: git commit -m `"status(301): add feature`""
   }
   "commit" {
-    Write-Host "Pick a STATUS code:"
+    Write-Host "Pick a status code:"
     Write-Host "1) 301 New feature"
     Write-Host "2) 601 Bug fix"
     Write-Host "3) 302 Improvement"
@@ -81,7 +81,7 @@ switch ($Command) {
       exit 1
     }
 
-    $msg = "STATUS($code): $summary"
+    $msg = "status($code): $summary"
     & git -C $Repo commit -m $msg
   }
   default {

@@ -1,0 +1,27 @@
+{
+  "name": "status-commit",
+  "displayName": "STATUS Commit",
+  "description": "Autocomplete and quick-pick for STATUS commit messages.",
+  "version": "0.0.1",
+  "publisher": "himeshchanchal",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "SCM Providers",
+    "Productivity"
+  ],
+  "activationEvents": [
+    "onLanguage:git-commit",
+    "onCommand:statusCommit.insertCode"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "statusCommit.insertCode",
+        "title": "STATUS Commit: Insert Code"
+      }
+    ]
+  }
+}
