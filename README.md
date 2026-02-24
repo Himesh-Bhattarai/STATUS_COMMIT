@@ -217,7 +217,8 @@ status(301): feat(api) add export endpoint
 `git`, `commit`, `conventions`, `workflow`, `developer-tools`, `productivity`
 
 ## GitHub Pages
-A landing page is included in `docs/`. Enable GitHub Pages with the `main` branch and `/docs` folder.
+- Docs landing page: `docs/` (optional).
+- Website: deploys from `website/` via GitHub Actions. Set Pages source to **GitHub Actions**.
 
 ## Website (Next.js)
 A full website lives in `website/` as a Next.js app.

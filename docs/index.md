@@ -160,6 +160,8 @@ pnpm install
 pnpm dev
 ```
 
+Deploy: GitHub Pages via the workflow in `.github/workflows/website.yml` (set Pages source to **GitHub Actions**).
+
 ## FAQ
 - **Do I have to use it for every commit?** Only if you enable the hook or CI check.
 - **Does it replace semantic versioning?** No. It is about commit intent, not releases.
