@@ -16,6 +16,17 @@ STATUS is a commit convention that encodes the reliability and state of a change
 It makes git history scannable, honest, and easy to communicate across teams.
 The STATUS code signals the objective, intended state of the code (working, broken, refactored, WIP), while the message remains the author's narrative about what they did and why.
 
+## Why STATUS
+- You can scan a log and immediately see what is stable, risky, or in progress.
+- It reduces bikeshedding by limiting the code to a small, consistent set.
+- It makes risk explicit (e.g., `409` for risky, `500` for broken) so teams don't ship surprises.
+
+Example:
+```
+status(301): add export endpoint
+status(409): works but risky, needs extra testing
+```
+
 ## Quickstart
 1. Copy these files into your repo: `.gitmessage`, `hooks/commit-msg`, `hooks/prepare-commit-msg`, `scripts/install-hooks.*`.
 2. Set the commit template: `git config commit.template .gitmessage`.
