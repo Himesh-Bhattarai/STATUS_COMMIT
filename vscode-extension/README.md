@@ -8,7 +8,8 @@ This extension adds autocomplete and a Quick Pick command for STATUS commit mess
 
 ## Usage
 1. Open a commit message file or SCM input box.
-2. Trigger autocomplete (Ctrl+Space) or run the command from the Command Palette.
+2. Trigger autocomplete (Ctrl+Space) in commit message editors, or run the command from the Command Palette.
+3. Use the default keybinding `Ctrl+Alt+S` (macOS: `Cmd+Alt+S`) to insert a STATUS snippet.
 
 ## Local Install (VSIX)
 ```bash

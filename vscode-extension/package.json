@@ -2,7 +2,7 @@
   "name": "status-commit",
   "displayName": "STATUS Commit",
   "description": "Autocomplete and quick-pick for STATUS commit messages.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "himeshchanchal",
   "license": "Apache-2.0",
   "icon": "icon.png",
@@ -38,6 +38,14 @@
       {
         "command": "statusCommit.insertCode",
         "title": "STATUS Commit: Insert Code"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "statusCommit.insertCode",
+        "key": "ctrl+alt+s",
+        "mac": "cmd+alt+s",
+        "when": "editorTextFocus || scmInputIsVisible"
       }
     ]
   }
