@@ -140,6 +140,15 @@ You can combine STATUS with Conventional Commits if you want:
 status(301): feat(api) add export endpoint
 ```
 
+## Website (Next.js)
+A full website lives in `website/` as a Next.js app.
+
+```bash
+cd website
+pnpm install
+pnpm dev
+```
+
 ## FAQ
 - **Do I have to use it for every commit?** Only if you enable the hook or CI check.
 - **Does it replace semantic versioning?** No. It is about commit intent, not releases.

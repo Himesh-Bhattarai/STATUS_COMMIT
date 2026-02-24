@@ -208,6 +208,15 @@ status(301): feat(api) add export endpoint
 ## GitHub Pages
 A landing page is included in `docs/`. Enable GitHub Pages with the `main` branch and `/docs` folder.
 
+## Website (Next.js)
+A full website lives in `website/` as a Next.js app.
+
+```bash
+cd website
+pnpm install
+pnpm dev
+```
+
 ## Social Preview
 A ready-to-use image is included at `assets/social-preview.svg`. Export it to PNG and set it in your GitHub repository settings for better sharing.
 
