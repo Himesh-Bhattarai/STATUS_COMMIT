@@ -120,7 +120,7 @@ status(404): everything is broken except me
 ```
 
 ## Live Examples
-- [STATUS Commit System (this repo) — commit history](https://github.com/Himesh-Bhattarai/STATUS_COMMIT/commits/main)
+- [STATUS Commit System (this repo) - commit history](https://github.com/Himesh-Bhattarai/STATUS_COMMIT/commits/main)
 
 ## Tooling
 - `.gitmessage` commit template for consistent summaries.

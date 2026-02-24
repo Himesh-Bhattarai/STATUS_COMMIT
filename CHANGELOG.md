@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2026-02-24
+- Fixed garbled dash in Live Examples links across docs.
+
 ## [1.1.0] - 2026-02-23
 - Added VS Code extension source with autocomplete and Quick Pick.
 - Added guided commit command in the CLI.
