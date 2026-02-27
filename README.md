@@ -25,27 +25,25 @@ status(409): works but risky, needs extra testing
 ```
 
 ## Quickstart (60 Seconds)
-1. Copy these files into your repo: `.gitmessage`, `hooks/commit-msg`, `hooks/prepare-commit-msg`, `scripts/install-hooks.*`.
-2. Set the commit template: `git config commit.template .gitmessage`.
-3. Install the hook.
-
-```bash
-# macOS / Linux
-bash scripts/install-hooks.sh
-```
-
-```powershell
-# Windows
-powershell -ExecutionPolicy Bypass -File scripts/install-hooks.ps1
-```
-
-4. Make a commit.
-
-```bash
-git commit -m "status(301): add export endpoint"
-```
-
-Tip: run `git commit` (without `-m`) to see the inline STATUS prompt in your editor.
+1. Install the npm CLI globally (published)  
+   ```bash
+   npm install -g status-commit
+   ```
+2. Install hooks into your repo (no manual templates needed)  
+   ```bash
+   status-commit install
+   ```
+3. Commit as usual  
+   ```bash
+   git commit -m "status(301): add export endpoint"
+   ```
+4. Inspect risk + drift (optional)  
+   ```bash
+   status-commit scan --limit 200
+   status-commit report --limit 50
+   status-commit dashboard --limit 200
+   ```
+Tip: run `git commit` (without `-m`) to see the inline STATUS prompt in your editor (prepare hook stays optional).
 
 ## Quick Start Video (GIF)
 Below is a short, looping GIF showing the 60-second install and a guided commit:
@@ -53,29 +51,16 @@ Below is a short, looping GIF showing the 60-second install and a guided commit:
 ![Quick Start Demo](assets/quickstart.gif)
 
 ## One-Command Install
-If you cloned this repo, you can install STATUS into any git repo:
-
+With the npm CLI installed, drop into any repo and run:
 ```bash
-# macOS / Linux
-./bin/status-commit install --repo /path/to/your-repo
+status-commit install
 ```
+This writes a `commit-msg` hook that enforces `status(###): ...` (codes unchanged).
 
-```powershell
-# Windows
-powershell -ExecutionPolicy Bypass -File bin/status-commit.ps1 -Repo C:\path\to\your-repo
-```
-
-## Guided Commit (Uses -m)
-If you want a guided menu that still uses `-m` under the hood:
-
+## Validate a Commit Message
+Useful in CI or before committing:
 ```bash
-# macOS / Linux
-./bin/status-commit commit --repo /path/to/your-repo
-```
-
-```powershell
-# Windows
-powershell -ExecutionPolicy Bypass -File bin/status-commit.ps1 commit -Repo C:\path\to\your-repo
+status-commit commit "status(301): add export endpoint"
 ```
 
 ## VS Code Extension
@@ -186,12 +171,10 @@ status(404): everything is broken except me
 - [STATUS Commit System (this repo) - commit history](https://github.com/Himesh-Bhattarai/STATUS_COMMIT/commits/main)
 
 ## Tooling In This Repo
-- `.gitmessage` commit template for consistent summaries.
-- `hooks/commit-msg` validates the STATUS format.
-- `hooks/prepare-commit-msg` pre-fills a STATUS line for empty messages.
-- `scripts/install-hooks.*` installs the hook for your repo.
+- `status-commit/` npm CLI (bin: `status-commit`) with `install`, `scan`, `report`, `dashboard`.
+- `hooks/commit-msg` enforced by the CLI installer (codes unchanged).
 - `status-codes.json` provides machine-readable codes.
-- `bin/status-commit` and `bin/status-commit.ps1` install tools into any repo.
+- VS Code extension remains in `vscode-extension/` (unchanged).
 
 ## Automation
 A GitHub Action is included at `.github/workflows/status-commit.yml` to check commit messages in PRs and pushes to `main`.

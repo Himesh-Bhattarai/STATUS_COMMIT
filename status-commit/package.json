@@ -1,0 +1,38 @@
+{
+  "name": "status-commit",
+  "version": "1.2.1",
+  "description": "CLI tool for STATUS commits + git history analysis",
+  "bin": {
+    "status-commit": "./bin/status-commit.js"
+  },
+  "type": "module",
+  "main": "bin/status-commit.js",
+  "files": [
+    "bin/",
+    "lib/",
+    "hooks/",
+    "README.md",
+    "package.json"
+  ],
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.0.0",
+    "open": "^9.0.0",
+    "simple-git": "^3.32.3",
+    "better-sqlite3": "^12.6.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Himesh-Bhattarai/STATUS_COMMIT.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Himesh-Bhattarai/STATUS_COMMIT/issues"
+  },
+  "homepage": "https://github.com/Himesh-Bhattarai/STATUS_COMMIT#readme",
+  "keywords": ["git", "commit", "STATUS", "CLI", "risk", "dashboard"],
+  "author": "Himesh",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

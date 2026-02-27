@@ -1,0 +1,8 @@
+.status-intel/
+node_modules/
+npm-debug.log
+*.db
+*.db-journal
+*.log
+coverage/
+reports/
