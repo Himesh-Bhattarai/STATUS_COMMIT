@@ -1,12 +1,17 @@
 import simpleGit from 'simple-git';
-import Database from 'better-sqlite3';
+import fs from 'fs';
+import path from 'path';
+import initSqlJs from 'sql.js';
 import { defaultCriticalPaths, repoRoot, dbPath } from './utils.js';
+
+const sqlPromise = initSqlJs();
 
 export async function scan({ limit = 200, root = repoRoot(), config = {} }) {
   const git = simpleGit(root);
   const log = await git.log({ maxCount: limit });
   const dbFile = dbPath(root);
-  const db = initDb(dbFile);
+  const { db, SQL } = await openDb(dbFile);
+  ensureSchema(db);
 
   const criticalPaths = defaultCriticalPaths(config);
   const scanned = [];
@@ -34,61 +39,89 @@ export async function scan({ limit = 200, root = repoRoot(), config = {} }) {
     const { summary, files } = parseNumstat(numstat, criticalPaths);
     const risk = score(summary, statusCode);
 
-    insertCommit.run(commit.hash, commit.message, commit.author_name, Date.parse(commit.date), statusCode);
-    insertStats.run(
+    insertCommit.run([commit.hash, commit.message, commit.author_name, Date.parse(commit.date), statusCode]);
+    insertStats.run([
       commit.hash,
       summary.filesChanged,
       summary.insertions,
       summary.deletions,
       summary.testsChanged ? 1 : 0,
       summary.criticalHits
-    );
-    insertRisk.run(commit.hash, risk.score, risk.level, JSON.stringify(risk.rationale));
+    ]);
+    insertRisk.run([commit.hash, risk.score, risk.level, JSON.stringify(risk.rationale)]);
 
-    const insertFilesTx = db.transaction((rows) => {
-      for (const f of rows) {
-        insertFile.run(commit.hash, f.file_path, f.insertions, f.deletions, f.is_test, f.is_critical);
-      }
-    });
-    insertFilesTx(files);
+    db.exec('BEGIN TRANSACTION');
+    for (const f of files) {
+      insertFile.run([commit.hash, f.file_path, f.insertions, f.deletions, f.is_test, f.is_critical]);
+    }
+    db.exec('COMMIT');
 
     scanned.push({ hash: commit.hash, statusCode, summary, risk });
   }
 
+  insertCommit.free();
+  insertStats.free();
+  insertRisk.free();
+  insertFile.free();
+
+  persistDb(db, dbFile);
   db.close();
   return { scanned, dbFile };
 }
 
 export async function recent(dbFile, limit = 50) {
-  const db = new Database(dbFile);
-  const commits = db
-    .prepare(
-      `SELECT c.hash, c.message, c.author, c.date, c.status_code,
-              s.files_changed, s.insertions, s.deletions, s.tests_changed, s.critical_hits,
-              r.score, r.level, r.rationale
-       FROM commits c
-       JOIN stats s ON c.hash = s.hash
-       JOIN risk r ON c.hash = r.hash
-       ORDER BY c.date DESC
-       LIMIT ?`
-    )
-    .all(limit);
-  const files = db
-    .prepare(
-      `SELECT cf.hash, cf.file_path, cf.insertions, cf.deletions, cf.is_test, cf.is_critical,
-              r.score, r.level, c.date
-       FROM commit_files cf
-       JOIN risk r ON r.hash = cf.hash
-       JOIN commits c ON c.hash = cf.hash`
-    )
-    .all();
+  const { db, SQL } = await openDb(dbFile);
+  ensureSchema(db);
+
+  const commits = [];
+  const commitStmt = db.prepare(
+    `SELECT c.hash, c.message, c.author, c.date, c.status_code,
+            s.files_changed, s.insertions, s.deletions, s.tests_changed, s.critical_hits,
+            r.score, r.level, r.rationale
+     FROM commits c
+     JOIN stats s ON c.hash = s.hash
+     JOIN risk r ON c.hash = r.hash
+     ORDER BY c.date DESC
+     LIMIT ?`
+  );
+  commitStmt.bind([limit]);
+  while (commitStmt.step()) {
+    commits.push(commitStmt.getAsObject());
+  }
+  commitStmt.free();
+
+  const files = [];
+  const fileStmt = db.prepare(
+    `SELECT cf.hash, cf.file_path, cf.insertions, cf.deletions, cf.is_test, cf.is_critical,
+            r.score, r.level, c.date
+     FROM commit_files cf
+     JOIN risk r ON r.hash = cf.hash
+     JOIN commits c ON c.hash = cf.hash`
+  );
+  while (fileStmt.step()) {
+    files.push(fileStmt.getAsObject());
+  }
+  fileStmt.free();
+
+  // read-only: no need to persist
   db.close();
   return { commits, files };
 }
 
-function initDb(dbFile) {
-  const db = new Database(dbFile);
-  db.pragma('journal_mode = WAL');
+async function openDb(dbFile) {
+  const SQL = await sqlPromise;
+  fs.mkdirSync(path.dirname(dbFile), { recursive: true });
+  let db;
+  if (fs.existsSync(dbFile)) {
+    const fileBuffer = fs.readFileSync(dbFile);
+    db = new SQL.Database(fileBuffer);
+  } else {
+    db = new SQL.Database();
+  }
+  return { db, SQL };
+}
+
+function ensureSchema(db) {
   db.exec(`
     CREATE TABLE IF NOT EXISTS commits (
       hash TEXT PRIMARY KEY,
@@ -121,7 +154,6 @@ function initDb(dbFile) {
       PRIMARY KEY (hash, file_path)
     );
   `);
-  return db;
 }
 
 function parseStatus(message) {
@@ -233,5 +265,15 @@ function score(summary, statusCode) {
 }
 
 function hasCommit(db, hash) {
-  return !!db.prepare('SELECT 1 FROM commits WHERE hash = ?').get(hash);
+  const stmt = db.prepare('SELECT 1 FROM commits WHERE hash = ?');
+  stmt.bind([hash]);
+  const exists = stmt.step();
+  stmt.free();
+  return exists;
+}
+
+function persistDb(db, dbFile) {
+  const data = db.export();
+  const buffer = Buffer.from(data);
+  fs.writeFileSync(dbFile, buffer);
 }

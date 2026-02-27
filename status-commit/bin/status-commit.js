@@ -5,19 +5,25 @@ import { installHooks, validateMessage } from '../lib/commit-enforcer.js';
 import { scan, recent } from '../lib/history-analyzer.js';
 import { repoRoot, dbPath, readConfig, openFile } from '../lib/utils.js';
 import { generateDashboard } from '../lib/dashboard.js';
+import { createRequire } from 'module';
+
+const { version } = createRequire(import.meta.url)('../package.json');
 
 const program = new Command();
 
 program
   .name('status-commit')
   .description('STATUS commit enforcement + git history analysis')
-  .version('1.0.0');
+  .version(version);
 
 program
   .command('install')
   .description('Install git commit hooks to enforce STATUS(code): message')
-  .action(() => {
-    installHooks();
+  .option('--ci', 'Add GitHub Actions workflow for STATUS commits')
+  .option('--templates', 'Add PR + issue templates for STATUS workflow')
+  .option('-f, --force', 'Overwrite existing files if present')
+  .action((opts) => {
+    installHooks({ ci: opts.ci, templates: opts.templates, force: opts.force });
   });
 
 program

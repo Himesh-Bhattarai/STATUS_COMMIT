@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2026-02-27
+- Added `status-commit install --ci --templates` to scaffold GitHub workflow, PR, and issue templates.
+- Bundled reusable workflow/templates in the npm package and CLI installer output.
+- Swapped native SQLite deps for pure WASM `sql.js` (removes `prebuild-install` warnings).
+- CLI now reports the package version correctly and exposes new install flags.
+- Quickstart docs refreshed to match the new install flow (GIF needs re-recording).
+
 ## [1.1.1] - 2026-02-24
 - Fixed garbled dash in Live Examples links across docs.
 

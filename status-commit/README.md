@@ -10,9 +10,9 @@ cd status-commit && npm install -g
 ```
 
 ## Commands
-- `status-commit install` - install commit hooks to enforce `status(###): message`
+- `status-commit install [--ci --templates] [-f]` - install commit hooks and optionally drop GitHub workflow + PR/issue templates
 - `status-commit commit "<msg>"` - validate a message (useful in CI)
-- `status-commit scan [--limit 200]` - scan git history, compute risk, store in SQLite
+- `status-commit scan [--limit 200]` - scan git history, compute risk, store in SQL.js DB
 - `status-commit report [--limit 50]` - console report of recent commits and risk
 - `status-commit dashboard [--limit 200]` - generate static HTML dashboard and open it
 

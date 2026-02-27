@@ -28,30 +28,23 @@ status(409): works but risky, needs extra testing
 ```
 
 ## Quickstart
-1. Copy these files into your repo: `.gitmessage`, `hooks/commit-msg`, `hooks/prepare-commit-msg`, `scripts/install-hooks.*`.
-2. Set the commit template: `git config commit.template .gitmessage`.
-3. Install the hook.
+1. Install the CLI globally  
+   ```bash
+   npm install -g status-commit
+   ```
+2. Install hooks + CI + templates in your repo  
+   ```bash
+   status-commit install --ci --templates
+   ```
+3. Make a commit  
+   ```bash
+   git commit -m "status(301): add export endpoint"
+   ```
 
-```bash
-# macOS / Linux
-bash scripts/install-hooks.sh
-```
-
-```powershell
-# Windows
-powershell -ExecutionPolicy Bypass -File scripts/install-hooks.ps1
-```
-
-4. Make a commit.
-
-```bash
-git commit -m "status(301): add export endpoint"
-```
-
-Tip: run `git commit` (without `-m`) to see the inline STATUS prompt in your editor.
+Tip: run `git commit` (without `-m`) to see the inline STATUS prompt in your editor (prepare hook reserved for future automation).
 
 ## Quick Start Video (GIF)
-Below is a short, looping GIF showing the 60-second install and a guided commit:
+Below is a short, looping GIF showing the 60-second install and a guided commit (recorded with v1.3.0):
 
 ![Quick Start Demo](assets/quickstart.gif)
 

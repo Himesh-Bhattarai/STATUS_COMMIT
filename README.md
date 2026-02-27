@@ -31,7 +31,7 @@ status(409): works but risky, needs extra testing
    ```
 2. Install hooks into your repo (no manual templates needed)  
    ```bash
-   status-commit install
+   status-commit install --ci --templates
    ```
 3. Commit as usual  
    ```bash
@@ -46,7 +46,8 @@ status(409): works but risky, needs extra testing
 Tip: run `git commit` (without `-m`) to see the inline STATUS prompt in your editor (prepare hook stays optional).
 
 ## Quick Start Video (GIF)
-Below is a short, looping GIF showing the 60-second install and a guided commit:
+Below is a short, looping GIF showing the 60-second install and a guided commit.
+Recorded with v1.3.0 (2026-02-27) using `status-commit install --ci --templates`.
 
 ![Quick Start Demo](assets/quickstart.gif)
 
