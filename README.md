@@ -14,11 +14,24 @@ Inspired by HTTP status semantics.
 
 ## What It Is
 STATUS is a commit convention that encodes the reliability and state of a change.
-It makes git history scannable, honest, and easy to communicate across teams.
-The STATUS code signals the objective, intended state (working, broken, refactored, WIP), while the message remains the author's narrative about what they did and why.
+It turns your git log into a **real-time health dashboard**. Instead of guessing if a commit is safe to pull, the code tells you exactly how much to trust it.
+
+### 🟢 How it looks in your terminal:
+```text
+301 [Success]  status(301): add export endpoint
+409 [Warning]  status(409): works but fragile, needs review
+500 [Failure]  status(500): runtime crash on auth middleware
+601 [Fixed]    status(601): fix null pointer in auth
+```
 
 ## Why STATUS
-- You can scan a log and immediately see what is stable, risky, or in progress.
+> **"Honesty over perfection."**
+
+Traditional commit messages tell you *what* changed. STATUS tells you *how it feels*.
+
+- **Instant Scanning:** Spot stable vs. risky changes in milliseconds.
+- **Risk Transparency:** No more "hidden" bugs in a "feat:" commit.
+- **Team Trust:** `409` or `500` signals to teammates: "Don't base your work on this yet."
 - It reduces bikeshedding by limiting the code to a small, consistent set.
 - It makes risk explicit (e.g., `409` for risky, `500` for broken) so teams don't ship surprises.
 
@@ -200,11 +213,18 @@ A GitHub Action is included at `.github/workflows/status-commit.yml` to check co
 - A pull request template lives at `.github/pull_request_template.md`.
 
 ## Compatibility
-You can combine STATUS with Conventional Commits if you want:
+STATUS works perfectly alongside **Conventional Commits**. While Conventional Commits describe the *type* of change, STATUS describes the *health* of the change.
 
-```
-status(301): feat(api) add export endpoint
-```
+| Convention | Focus | Example |
+| :--- | :--- | :--- |
+| **Conventional** | Type/Scope | `feat(api): add user export` |
+| **STATUS** | Reliability | `status(301): add user export` |
+| **Combined** | **Full Context** | `status(301): feat(api): add user export` |
+
+## 🎯 Core Philosophy
+1. **Be Honest:** If it's broken, code it `500`. It's better to know it's broken than to pretend it's finished.
+2. **Be Objective:** Use the code that matches the *current* state, not the *desired* state.
+3. **Be Fast:** Don't overthink. If it's a new feature that works, it's `301`.
 
 ## FAQ
 - **Do I have to use it for every commit?** Only if you enable the hook or CI check.
