@@ -7,6 +7,10 @@ Inspired by HTTP status semantics.
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Commit Style](https://img.shields.io/badge/Commit%20Style-STATUS-0a7.svg)](README.md)
 [![STATUS Commit Check](https://github.com/Himesh-Bhattarai/STATUS_COMMIT/actions/workflows/status-commit.yml/badge.svg)](https://github.com/Himesh-Bhattarai/STATUS_COMMIT/actions/workflows/status-commit.yml)
+[![npm version](https://img.shields.io/npm/v/status-commit.svg?color=orange)](https://www.npmjs.com/package/status-commit)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Stars](https://img.shields.io/github/stars/Himesh-Bhattarai/STATUS_COMMIT.svg?style=social)](https://github.com/Himesh-Bhattarai/STATUS_COMMIT/stargazers)
+
 
 ## What It Is
 STATUS is a commit convention that encodes the reliability and state of a change.
@@ -130,6 +134,10 @@ Top codes:
 | Initialization | STATUS(001) | Initial commit / project start |
 | Initialization | STATUS(002) | Base structure established |
 | Initialization | STATUS(003) | Create / delete folder or file |
+| Configuration | STATUS(050) | Tooling/Environment config (ESLint, Prettier, etc.) |
+| Configuration | STATUS(051) | CI/CD pipeline changes (GitHub Actions, Jenkins) |
+| Configuration | STATUS(052) | Dependency added |
+| Configuration | STATUS(053) | Dependency removed/updated |
 | In Progress | STATUS(101) | Draft or scaffolding added |
 | In Progress | STATUS(102) | Partial implementation |
 | In Progress | STATUS(103) | Blocked / waiting on dependency |
@@ -141,6 +149,9 @@ Top codes:
 | Change / Improvement | STATUS(300) | Refactoring (no functional change) |
 | Change / Improvement | STATUS(301) | Feature or capability added |
 | Change / Improvement | STATUS(302) | Enhancement or improvement |
+| Change / Improvement | STATUS(303) | Performance optimization |
+| Change / Improvement | STATUS(304) | UI/UX / Styling changes |
+| Change / Improvement | STATUS(305) | Accessibility (a11y) improvement |
 | Design / Usage Issues | STATUS(401) | Incorrect data flow or usage |
 | Design / Usage Issues | STATUS(403) | Scope or responsibility issue |
 | Design / Usage Issues | STATUS(408) | Performance / latency issues identified |
@@ -150,6 +161,10 @@ Top codes:
 | Broken / Failure | STATUS(503) | Security vulnerability or auth failure |
 | Recovery | STATUS(601) | Bug or failure fixed |
 | Recovery | STATUS(603) | Structure or state corrected |
+| Test/ Testing | status(700) | Test file- enhance/ improvement/ created
+| Test-> pass | status(701) | Test pass / can be trusted
+| Test-> fail | status(702) | Test intentionally failing (TDD/Reproducer) |
+| Performance | status(801) | Benchmarking / profiling results added |
 | Special | STATUS(infinity) | Gold Master / Fully stable, tested, and trusted |
 | Special | STATUS(404) | Human State / Chaos (does not indicate code quality) |
 
